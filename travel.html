@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet Routes - AI Travel Itinerary Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-content {
+            display: none;
+        }
+        
+        .slide-content.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-inter overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">V</span>
+                </div>
+                <h1 class="text-2xl font-playfair font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Velvet Routes
+                </h1>
+            </div>
+            <ul class="flex gap-8 font-medium">
+                <li><a href="#features" class="hover:text-purple-400 transition-colors">Features</a></li>
+                <li><a href="#about" class="hover:text-purple-400 transition-colors">About</a></li>
+                <li><a href="#contact" class="hover:text-purple-400 transition-colors">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen gradient-bg flex items-center">
+        <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left Side - Main Content -->
+            <div class="space-y-8">
+                <h1 class="font-playfair text-6xl md:text-7xl font-bold leading-tight">
+                    Discover Your
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                        Perfect Journey
+                    </span>
+                </h1>
+                
+                <p class="text-xl text-gray-200 leading-relaxed max-w-2xl">
+                    Create personalized travel itineraries with AI-powered recommendations. 
+                    From hidden gems to popular destinations, plan your dream trip effortlessly.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="planner.html" class="bg-white text-purple-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg text-center">
+                        Start Planning
+                    </a>
+                    <button onclick="showSlide(2)" class="glass-effect px-8 py-4 rounded-full font-semibold hover:bg-white hover:bg-opacity-20 transition-all">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side - Interactive Box -->
+            <div class="glass-effect rounded-3xl p-8 shadow-2xl">
+                
+                <!-- Slide Navigation -->
+                <div class="flex space-x-4 mb-6">
+                    <button onclick="showSlide(1)" id="tab1" class="px-4 py-2 rounded-full bg-purple-500 text-white font-medium transition-all">
+                        Destinations
+                    </button>
+                    <button onclick="showSlide(2)" id="tab2" class="px-4 py-2 rounded-full text-gray-300 hover:text-white transition-all">
+                        AI Planning
+                    </button>
+                    <button onclick="showSlide(3)" id="tab3" class="px-4 py-2 rounded-full text-gray-300 hover:text-white transition-all">
+                        Smart Budget
+                    </button>
+                </div>
+
+                <!-- Slide 1 -->
+                <div id="slide1" class="slide-content active space-y-4">
+                    <h3 class="text-2xl font-playfair font-bold">Discover Hidden Gems</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Explore curated destinations from bustling cities to serene beaches. 
+                        Our AI finds the perfect spots based on your preferences and travel style.
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                            🗺️
+                        </div>
+                        <div>
+                            <div class="font-semibold">1000+ Destinations</div>
+                            <div class="text-sm text-gray-400">Worldwide Coverage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div id="slide2" class="slide-content space-y-4">
+                    <h3 class="text-2xl font-playfair font-bold">AI-Powered Planning</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Generate complete itineraries in seconds. Our smart algorithms consider 
+                        weather, local events, and your personal interests for the perfect trip.
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                            🤖
+                        </div>
+                        <div>
+                            <div class="font-semibold">Smart Recommendations</div>
+                            <div class="text-sm text-gray-400">Personalized for You</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div id="slide3" class="slide-content space-y-4">
+                    <h3 class="text-2xl font-playfair font-bold">Budget Optimization</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Travel more for less with our budget optimization tools. Find the best 
+                        deals on flights, hotels, and activities tailored to your spending plan.
+                    </p>
+                    <div class="flex items-center space-x-4 pt-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                            💰
+                        </div>
+                        <div>
+                            <div class="font-semibold">Save up to 40%</div>
+                            <div class="text-sm text-gray-400">On Travel Expenses</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-playfair font-bold mb-4">Why Choose Velvet Routes</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Experience the future of travel planning with our cutting-edge features
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="feature-card glass-effect p-6 rounded-2xl hover-lift group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🎯</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Smart Matching</h3>
+                    <p class="text-gray-400">AI matches destinations to your personality and preferences</p>
+                </div>
+
+                <div class="feature-card glass-effect p-6 rounded-2xl hover-lift group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Instant Itineraries</h3>
+                    <p class="text-gray-400">Generate complete travel plans in under 30 seconds</p>
+                </div>
+
+                <div class="feature-card glass-effect p-6 rounded-2xl hover-lift group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🌍</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Global Coverage</h3>
+                    <p class="text-gray-400">Access to destinations and experiences worldwide</p>
+                </div>
+
+                <div class="feature-card glass-effect p-6 rounded-2xl hover-lift group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mobile Ready</h3>
+                    <p class="text-gray-400">Access your itineraries anywhere, anytime</p>
+                </div>
+
+                <div class="feature-card glass-effect p-6 rounded-2xl hover-lift group cursor-pointer">
+                    <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="text-2xl">🎨</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Custom Themes</h3>
+                    <p class="text-gray-400">Adventure, romance, family - trips tailored to your style</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="glass-effect p-8 rounded-3xl">
+                    <h2 class="text-3xl font-playfair font-bold mb-6">The Future of Travel Planning</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Velvet Routes revolutionizes how you plan your journeys. Our AI-powered platform 
+                        combines machine learning with local insights to create unforgettable travel experiences.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span>Personalized recommendations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span>Real-time updates and alerts</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span>Collaborative trip planning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-400">500K+</div>
+                        <div class="text-gray-400">Happy Travelers</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-400">150+</div>
+                        <div class="text-gray-400">Countries Covered</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-400">4.9★</div>
+                        <div class="text-gray-400">User Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-playfair font-bold mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-200">Ready to start your journey? We'd love to hear from you.</p>
+            </div>
+
+            <div class="glass-effect rounded-3xl p-8">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Your Name</label>
+                            <input type="text" class="w-full p-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email Address</label>
+                            <input type="email" class="w-full p-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Subject</label>
+                        <input type="text" class="w-full p-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="What's this about?">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Message</label>
+                        <textarea rows="5" class="w-full p-4 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none" placeholder="Tell us about your dream destination..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-white text-purple-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all shadow-lg">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Planner Modal -->
+    <div id="plannerModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-900 rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+            
+            <!-- Planner Header -->
+            <div class="gradient-bg p-6 rounded-t-3xl">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-3xl font-playfair font-bold">Plan Your Perfect Trip</h2>
+                    <button onclick="closePlanner()" class="text-white hover:text-gray-300 text-2xl">&times;</button>
+                </div>
+            </div>
+
+            <!-- Planner Content -->
+            <div class="p-6">
+                
+                <!-- Step Navigation -->
+                <div class="flex mb-8 bg-gray-800 rounded-2xl p-2">
+                    <button onclick="showPlannerStep(1)" id="step1-btn" class="flex-1 py-3 px-4 rounded-xl bg-purple-600 text-white font-medium">
+                        Destination
+                    </button>
+                    <button onclick="showPlannerStep(2)" id="step2-btn" class="flex-1 py-3 px-4 rounded-xl text-gray-400 hover:text-white">
+                        Dates & Budget
+                    </button>
+                    <button onclick="showPlannerStep(3)" id="step3-btn" class="flex-1 py-3 px-4 rounded-xl text-gray-400 hover:text-white">
+                        Transport
+                    </button>
+                    <button onclick="showPlannerStep(4)" id="step4-btn" class="flex-1 py-3 px-4 rounded-xl text-gray-400 hover:text-white">
+                        Accommodation
+                    </button>
+                    <button onclick="showPlannerStep(5)" id="step5-btn" class="flex-1 py-3 px-4 rounded-xl text-gray-400 hover:text-white">
+                        Summary
+                    </button>
+                </div>
+
+                <!-- Step 1: Destination Selection -->
+                <div id="planner-step-1" class="planner-step">
+                    <h3 class="text-2xl font-bold mb-6">Choose Your Destination</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        
+                        <!-- Popular Destinations -->
+                        <div class="md:col-span-2">
+                            <h4 class="text-lg font-semibold mb-4 text-purple-400">Popular Destinations</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('Paris, France', '€800-1200')">
+                                    <div class="text-2xl mb-2">🗼</div>
+                                    <div class="font-semibold">Paris, France</div>
+                                    <div class="text-sm text-gray-400">From €800</div>
+                                </div>
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('Tokyo, Japan', '¥80000-120000')">
+                                    <div class="text-2xl mb-2">🏯</div>
+                                    <div class="font-semibold">Tokyo, Japan</div>
+                                    <div class="text-sm text-gray-400">From ¥80,000</div>
+                                </div>
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('New York, USA', '$1000-1500')">
+                                    <div class="text-2xl mb-2">🗽</div>
+                                    <div class="font-semibold">New York, USA</div>
+                                    <div class="text-sm text-gray-400">From $1,000</div>
+                                </div>
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('Goa, India', '₹25000-40000')">
+                                    <div class="text-2xl mb-2">🏖️</div>
+                                    <div class="font-semibold">Goa, India</div>
+                                    <div class="text-sm text-gray-400">From ₹25,000</div>
+                                </div>
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('Dubai, UAE', '$900-1400')">
+                                    <div class="text-2xl mb-2">🏙️</div>
+                                    <div class="font-semibold">Dubai, UAE</div>
+                                    <div class="text-sm text-gray-400">From $900</div>
+                                </div>
+                                <div class="destination-card glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 transition-all" onclick="selectDestination('London, UK', '£700-1100')">
+                                    <div class="text-2xl mb-2">🏰</div>
+                                    <div class="font-semibold">London, UK</div>
+                                    <div class="text-sm text-gray-400">From £700</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search & Filters -->
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4 text-purple-400">Search Destinations</h4>
+                            <input type="text" placeholder="Search for a city..." class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600 mb-4">
+                            
+                            <h5 class="font-semibold mb-3">Trip Type</h5>
+                            <div class="space-y-2 mb-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="tripType" value="adventure" class="mr-2">
+                                    <span>Adventure</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="tripType" value="relaxation" class="mr-2">
+                                    <span>Beach & Relaxation</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="tripType" value="cultural" class="mr-2">
+                                    <span>Cultural</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="tripType" value="business" class="mr-2">
+                                    <span>Business</span>
+                                </label>
+                            </div>
+
+                            <div class="glass-effect p-4 rounded-xl">
+                                <h5 class="font-semibold mb-2">Selected Destination</h5>
+                                <div id="selectedDestination" class="text-purple-400">None selected</div>
+                                <div id="selectedBudget" class="text-sm text-gray-400"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Dates & Budget -->
+                <div id="planner-step-2" class="planner-step hidden">
+                    <h3 class="text-2xl font-bold mb-6">When & Budget</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        
+                        <!-- Date Selection -->
+                        <div class="glass-effect p-6 rounded-xl">
+                            <h4 class="text-lg font-semibold mb-4 text-purple-400">Travel Dates</h4>
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm mb-2">Departure Date</label>
+                                    <input type="date" id="departureDate" class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Return Date</label>
+                                    <input type="date" id="returnDate" class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div id="tripDuration" class="text-purple-400 font-semibold">Select dates to see duration</div>
+                            </div>
+                        </div>
+
+                        <!-- Budget Selection -->
+                        <div class="glass-effect p-6 rounded-xl">
+                            <h4 class="text-lg font-semibold mb-4 text-purple-400">Budget Range</h4>
+                            <div class="space-y-4">
+                                <div class="budget-option p-4 border border-gray-600 rounded-xl cursor-pointer hover:border-purple-500 hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectBudget('budget')">
+                                    <div class="font-semibold">Budget Friendly</div>
+                                    <div class="text-sm text-gray-400">$500 - $1000 per person</div>
+                                </div>
+                                <div class="budget-option p-4 border border-gray-600 rounded-xl cursor-pointer hover:border-purple-500 hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectBudget('mid')">
+                                    <div class="font-semibold">Mid-Range</div>
+                                    <div class="text-sm text-gray-400">$1000 - $2500 per person</div>
+                                </div>
+                                <div class="budget-option p-4 border border-gray-600 rounded-xl cursor-pointer hover:border-purple-500 hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectBudget('luxury')">
+                                    <div class="font-semibold">Luxury</div>
+                                    <div class="text-sm text-gray-400">$2500+ per person</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travelers -->
+                    <div class="glass-effect p-6 rounded-xl mt-6">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">Travelers</h4>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm mb-2">Adults</label>
+                                <select class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-2">Children</label>
+                                <select class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm mb-2">Infants</label>
+                                <select class="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-600">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Transport -->
+                <div id="planner-step-3" class="planner-step hidden">
+                    <h3 class="text-2xl font-bold mb-6">Transportation Options</h3>
+                    
+                    <!-- Flight Options -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">✈️ Flights</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectTransport('economy')">
+                                <div class="font-semibold">Economy Class</div>
+                                <div class="text-sm text-gray-400 mb-2">Budget friendly</div>
+                                <div class="text-purple-400 font-bold">$400 - $800</div>
+                            </div>
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectTransport('business')">
+                                <div class="font-semibold">Business Class</div>
+                                <div class="text-sm text-gray-400 mb-2">Extra comfort</div>
+                                <div class="text-purple-400 font-bold">$1200 - $2500</div>
+                            </div>
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectTransport('first')">
+                                <div class="font-semibold">First Class</div>
+                                <div class="text-sm text-gray-400 mb-2">Ultimate luxury</div>
+                                <div class="text-purple-400 font-bold">$3000+</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Local Transport -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">🚗 Local Transportation</h4>
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectLocalTransport('rental')">
+                                <div class="text-2xl mb-2">🚗</div>
+                                <div class="font-semibold">Car Rental</div>
+                                <div class="text-sm text-gray-400">$30-80/day</div>
+                            </div>
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectLocalTransport('uber')">
+                                <div class="text-2xl mb-2">🚕</div>
+                                <div class="font-semibold">Uber/Taxi</div>
+                                <div class="text-sm text-gray-400">$15-50/trip</div>
+                            </div>
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectLocalTransport('public')">
+                                <div class="text-2xl mb-2">🚇</div>
+                                <div class="font-semibold">Public Transit</div>
+                                <div class="text-sm text-gray-400">$5-15/day</div>
+                            </div>
+                            <div class="transport-option glass-effect p-4 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectLocalTransport('walking')">
+                                <div class="text-2xl mb-2">🚶</div>
+                                <div class="font-semibold">Walking</div>
+                                <div class="text-sm text-gray-400">Free</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selected Transport Summary -->
+                    <div class="glass-effect p-6 rounded-xl">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">Selected Transportation</h4>
+                        <div id="selectedTransport" class="text-gray-400">No transportation selected</div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Accommodation -->
+                <div id="planner-step-4" class="planner-step hidden">
+                    <h3 class="text-2xl font-bold mb-6">Where to Stay</h3>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <!-- Budget Hotels -->
+                        <div class="accommodation-option glass-effect p-6 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectAccommodation('budget', '$50-100/night')">
+                            <div class="text-3xl mb-3">🏨</div>
+                            <h4 class="font-semibold mb-2">Budget Hotels</h4>
+                            <p class="text-sm text-gray-400 mb-3">Clean, comfortable, basic amenities</p>
+                            <div class="text-purple-400 font-bold">$50-100/night</div>
+                            <div class="mt-3">
+                                <div class="text-xs text-yellow-400">⭐⭐⭐</div>
+                                <div class="text-xs text-gray-500">Free WiFi, 24/7 Front Desk</div>
+                            </div>
+                        </div>
+
+                        <!-- Mid-Range Hotels -->
+                        <div class="accommodation-option glass-effect p-6 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectAccommodation('midrange', '$100-250/night')">
+                            <div class="text-3xl mb-3">🏩</div>
+                            <h4 class="font-semibold mb-2">Mid-Range Hotels</h4>
+                            <p class="text-sm text-gray-400 mb-3">Great service, pool, restaurant</p>
+                            <div class="text-purple-400 font-bold">$100-250/night</div>
+                            <div class="mt-3">
+                                <div class="text-xs text-yellow-400">⭐⭐⭐⭐</div>
+                                <div class="text-xs text-gray-500">Pool, Gym, Room Service</div>
+                            </div>
+                        </div>
+
+                        <!-- Luxury Hotels -->
+                        <div class="accommodation-option glass-effect p-6 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectAccommodation('luxury', '$250-500/night')">
+                            <div class="text-3xl mb-3">🏰</div>
+                            <h4 class="font-semibold mb-2">Luxury Hotels</h4>
+                            <p class="text-sm text-gray-400 mb-3">Premium location, spa, fine dining</p>
+                            <div class="text-purple-400 font-bold">$250-500/night</div>
+                            <div class="mt-3">
+                                <div class="text-xs text-yellow-400">⭐⭐⭐⭐⭐</div>
+                                <div class="text-xs text-gray-500">Spa, Concierge, Butler</div>
+                            </div>
+                        </div>
+
+                        <!-- Alternative Stays -->
+                        <div class="accommodation-option glass-effect p-6 rounded-xl cursor-pointer hover:bg-purple-600 hover:bg-opacity-20 transition-all" onclick="selectAccommodation('alternative', '$30-150/night')">
+                            <div class="text-3xl mb-3">🏡</div>
+                            <h4 class="font-semibold mb-2">Airbnb/Hostels</h4>
+                            <p class="text-sm text-gray-400 mb-3">Unique stays, local experience</p>
+                            <div class="text-purple-400 font-bold">$30-150/night</div>
+                            <div class="mt-3">
+                                <div class="text-xs text-yellow-400">⭐⭐⭐⭐</div>
+                                <div class="text-xs text-gray-500">Kitchen, Local Area</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Preferences -->
+                    <div class="glass-effect p-6 rounded-xl mt-8">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">Room Preferences</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Sea View</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Balcony</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>Non-smoking</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span>King Size Bed</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Selected Accommodation -->
+                    <div class="glass-effect p-6 rounded-xl mt-6">
+                        <h4 class="text-lg font-semibold mb-4 text-purple-400">Selected Accommodation</h4>
+                        <div id="selectedAccommodation" class="text-gray-400">No accommodation selected</div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Summary & Booking -->
+                <div id="planner-step-5" class="planner-step hidden">
+                    <h3 class="text-2xl font-bold mb-6">Trip Summary</h3>
+                    
+                    <!-- Trip Overview -->
+                    <div class="glass-effect p-6 rounded-xl mb-6">
+                        <h4 class="text-xl font-semibold mb-4 text-purple-400">Your Trip Details</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <div class="mb-4">
+                                    <div class="font-semibold">Destination</div>
+                                    <div id="summaryDestination" class="text-gray-400">-</div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="font-semibold">Duration</div>
+                                    <div id="summaryDuration" class="text-gray-400">-</div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="font-semibold">Transportation</div>
+                                    <div id="summaryTransportation" class="text-gray-400">-</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-4">
+                                    <div class="font-semibold">Accommodation</div>
+                                    <div id="summaryAccommodation" class="text-gray-400">-</div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="font-semibold">Weather Forecast</div>
+                                    <div class="text-gray-400">☀️ 25°C - Perfect for sightseeing</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown -->
+                    <div class="glass-effect p-6 rounded-xl mb-6">
+                        <h4 class="text-xl font-semibold mb-4 text-purple-400">Cost Breakdown</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Flight (Round trip)</span>
+                                <span id="flightCost">$800</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Accommodation (7 nights)</span>
+                                <span id="hotelCost">$700</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Local Transportation</span>
+                                <span id="localTransportCost">$150</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Activities & Food</span>
+                                <span>$400</span>
+                            </div>
+                            <div class="border-t border-gray-600 pt-3 mt-3">
+                                <div class="flex justify-between text-xl font-bold text-purple-400">
+                                    <span>Total Cost</span>
+                                    <span id="totalCost">$2,050</span>
+                                </div>
+                                <div class="text-sm text-gray-400 text-right">Per person</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Suggested Activities -->
+                    <div class="glass-effect p-6 rounded-xl mb-6">
+                        <h4 class="text-xl font-semibold mb-4 text-purple-400">Suggested Activities</h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="p-4 bg-gray-800 rounded-xl">
+                                <div class="font-semibold mb-2">🎨 City Tour</div>
+                                <div class="text-sm text-gray-400">Explore major attractions</div>
+                                <div class="text-purple-400 font-bold">$50</div>
+                            </div>
+                            <div class="p-4 bg-gray-800 rounded-xl">
+                                <div class="font-semibold mb-2">🍽️ Food Tour</div>
+                                <div class="text-sm text-gray-400">Local cuisine experience</div>
+                                <div class="text-purple-400 font-bold">$80</div>
+                            </div>
+                            <div class="p-4 bg-gray-800 rounded-xl">
+                                <div class="font-semibold mb-2">🏛️ Museum Pass</div>
+                                <div class="text-sm text-gray-400">Access to top museums</div>
+                                <div class="text-purple-400 font-bold">$45</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4 justify-center">
+                        <button class="bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-xl font-semibold transition-all">
+                            Book This Trip
+                        </button>
+                        <button class="glass-effect px-8 py-3 rounded-xl font-semibold hover:bg-white hover:bg-opacity-10 transition-all">
+                            Save Itinerary
+                        </button>
+                        <button onclick="window.print()" class="glass-effect px-8 py-3 rounded-xl font-semibold hover:bg-white hover:bg-opacity-10 transition-all">
+                            Print Itinerary
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-8 pt-6 border-t border-gray-700">
+                    <button id="prevBtn" onclick="previousStep()" class="glass-effect px-6 py-3 rounded-xl font-semibold hover:bg-white hover:bg-opacity-10 transition-all" disabled>
+                        ← Previous
+                    </button>
+                    <button id="nextBtn" onclick="nextStep()" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl font-semibold transition-all">
+                        Next →
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">V</span>
+                    </div>
+                    <span class="text-xl font-playfair font-bold">Velvet Routes</span>
+                </div>
+                <div class="text-gray-400">
+                    © 2025 Velvet Routes. Crafted with ❤️ for travelers worldwide.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSlide(slideNumber) {
+            // Hide all slides
+            document.querySelectorAll('.slide-content').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('[id^="tab"]').forEach(tab => {
+                tab.classList.remove('bg-purple-500', 'text-white');
+                tab.classList.add('text-gray-300');
+            });
+            
+            // Show selected slide
+            document.getElementById(`slide${slideNumber}`).classList.add('active');
+            
+            // Activate selected tab
+            const activeTab = document.getElementById(`tab${slideNumber}`);
+            activeTab.classList.add('bg-purple-500', 'text-white');
+            activeTab.classList.remove('text-gray-300');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Auto-rotate slides
+        let currentSlide = 1;
+        setInterval(() => {
+            currentSlide = (currentSlide % 3) + 1;
+            showSlide(currentSlide);
+        }, 5000);
+    </script>
+
+</body>
+</html>
