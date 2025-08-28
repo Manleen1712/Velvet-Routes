@@ -76,27 +76,27 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-center mb-8">
-            <div class="flex items-center space-x-2 bg-gray-800 rounded-2xl p-2 overflow-x-auto">
-                <button onclick="showStep(1)" id="step1-btn" class="step-btn px-4 py-3 rounded-xl active font-medium transition-all whitespace-nowrap">
-                    1. Destination
-                </button>
-                <button onclick="showStep(2)" id="step2-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-                    2. Dates & Budget
-                </button>
-                <button onclick="showStep(3)" id="step3-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-                    3. Transport
-                </button>
-                <button onclick="showStep(4)" id="step4-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-now-rap">
-                    4. Hotels
-                </button>
-                <button onclick="showStep(5)" id="step5-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-                    5. Summary
-                </button>
-            </div>
+<main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-center mb-8">
+        <div class="flex items-center space-x-2 bg-gray-800 rounded-2xl p-2 overflow-x-auto">
+            <button onclick="window.location.href='destination.html'" id="step1-btn" class="step-btn px-4 py-3 rounded-xl active font-medium transition-all whitespace-nowrap">
+                1. Destination
+            </button>
+            <button onclick="window.location.href='dates-budget.html'" id="step2-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                2. Dates & Budget
+            </button>
+            <button onclick="window.location.href='transport.html'" id="step3-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                3. Transport
+            </button>
+            <button onclick="window.location.href='hotel.html'" id="step4-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                4. Hotels
+            </button>
+            <button onclick="window.location.href='summary.html'" id="step5-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                5. Summary
+            </button>
         </div>
-
+    </div>
+</main>
         <div id="step1" class="planner-step active">
             <div class="text-center mb-8">
                 <h2 class="text-4xl font-playfair font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Where do you want to go?</h2>
@@ -219,8 +219,8 @@
             </div>
 
             <div class="text-center">
-                <button onclick="showStep(2)" id="nextToStep2" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    Continue to Dates & Budget →
+                 <button onclick="window.location.href='dates-budget.html'" id="nextToStep2" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                 Continue to Dates & Budget →
                 </button>
             </div>
         </div>
@@ -478,11 +478,11 @@
             </div>
 
             <div class="flex justify-between">
-                <button onclick="showStep(2)" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-xl font-semibold transition-all">
-                    ← Back to Dates & Budget
+                <button onclick="window.location.href = 'dates-budget.html'" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-xl font-semibold transition-all">
+                ← Back to Dates & Budget
                 </button>
-                <button onclick="showStep(4)" id="nextToStep4" class="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    Continue to Hotels →
+                <button onclick="window.location.href = 'hotel.html'" id="nextToStep4" class="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                 Continue to Hotels →
                 </button>
             </div>
         </div>
