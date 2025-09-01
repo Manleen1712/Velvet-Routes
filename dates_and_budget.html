@@ -169,9 +169,46 @@
       .header h1{ font-size: 2.15rem; }
       .planning-card{ padding:22px; }
     }
+.home-button {
+    /* Basic button styling */
+    position: fixed; /* This makes the button stay in a fixed position on the screen */
+    top: 20px;       /* Change from 'bottom' to 'top' */
+    right: 20px;     /* 20 pixels from the right side of the screen */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    /* Look and feel from your image */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Optional: Adds a hover effect for a better user experience */
+.home-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.arrow-icon {
+    font-size: 20px;
+    line-height: 1;
+}
   </style>
 </head>
 <body>
+    <a href="home.html" class="home-button">
+    <span class="arrow-icon">&larr;</span> Back to Home
+    </a>
   <!-- floating background -->
   <div class="floating-elements">
     <div class="floating-circle" style="width:78px;height:78px; top:10%; left:12%; animation-delay:0s;"></div>
@@ -454,5 +491,10 @@
       updateSummary();
     });
   </script>
+  <div class="action-buttons">
+    <a href="transport.html" class="btn btn-primary">Next: Choose Transport</a>
+    <a href="planner.html" class="btn btn-secondary">Back: To Planner</a>
+</div>
+
 </body>
 </html>

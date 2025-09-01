@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Planner - Velvet Routes</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="script.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -63,7 +62,6 @@
 </head>
 <body class="bg-gray-900 text-white font-inter">
 
-    <!-- Header -->
     <header class="gradient-bg p-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -72,100 +70,78 @@
                 </div>
                 <h1 class="text-3xl font-playfair font-bold">Velvet Routes Planner</h1>
             </div>
-            <button onclick="window.history.back()" class="glass-effect px-6 py-2 rounded-xl hover:bg-white hover:bg-opacity-20 transition-all">
+            <a href="Home.html" class="glass-effect px-6 py-2 rounded-xl hover:bg-white hover:bg-opacity-20 transition-all">
                 ← Back to Home
-            </button>
+            </a>
         </div>
     </header>
 
-      <!-- Main Content -->
-       <!-- Progress Steps -->
-<div class="flex justify-center mb-8">
-    <div class="flex items-center space-x-2 bg-gray-800 rounded-2xl p-2 overflow-x-auto">
-        <!-- Destination (opens on planner.html itself) -->
-        <button onclick="showStep(1)" id="step1-btn" 
-            class="step-btn px-4 py-3 rounded-xl active font-medium transition-all whitespace-nowrap">
-            1. Destination
-        </button>
-
-        <!-- Dates & Budget -->
-        <a href="dates-budget.html" id="step2-btn"
-            class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-            2. Dates & Budget
-        </a>
-
-        <!-- Transport -->
-        <a href="transport.html" id="step3-btn"
-            class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-            3. Transport
-        </a>
-
-        <!-- Hotels -->
-        <a href="hotel.html" id="step4-btn"
-            class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-            4. Hotels
-        </a>
-
-        <!-- Summary -->
-        <a href="summary.html" id="step5-btn"
-            class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
-            5. Summary
-        </a>
+<main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-center mb-8">
+        <div class="flex items-center space-x-2 bg-gray-800 rounded-2xl p-2 overflow-x-auto">
+            <button onclick="window.location.href='destination.html'" id="step1-btn" class="step-btn px-4 py-3 rounded-xl active font-medium transition-all whitespace-nowrap">
+                1. Destination
+            </button>
+            <button onclick="window.location.href='dates-budget.html'" id="step2-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                2. Dates & Budget
+            </button>
+            <button onclick="window.location.href='transport.html'" id="step3-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                3. Transport
+            </button>
+            <button onclick="window.location.href='hotel.html'" id="step4-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                4. Hotels
+            </button>
+            <button onclick="window.location.href='summary.html'" id="step5-btn" class="step-btn px-4 py-3 rounded-xl text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                5. Summary
+            </button>
+        </div>
     </div>
-</div>
-
-
-
-        <!-- Step 1: Destination Selection -->
+</main>
         <div id="step1" class="planner-step active">
             <div class="text-center mb-8">
                 <h2 class="text-4xl font-playfair font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Where do you want to go?</h2>
                 <p class="text-xl text-gray-400">Choose from our curated destinations</p>
             </div>
-
+            
             <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 mb-8">
-                
-                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Paris, France', '€800-1500', 'paris')">
+                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Paris, France', '$800-1500', 'paris')">
                     <div class="text-4xl mb-4 text-center">🗼</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Paris, France</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">City of Love & Art</p>
                     <div class="text-center">
-                        <div class="text-purple-400 font-bold">€800-1500</div>
+                        <div class="text-purple-400 font-bold">$800-1500</div>
                         <div class="text-xs text-gray-500">per person</div>
                     </div>
                     <div class="mt-4 text-center">
                         <span class="text-xs bg-purple-600 px-2 py-1 rounded-full">Cultural</span>
                     </div>
                 </div>
-
-                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Tokyo, Japan', '¥80000-150000', 'tokyo')">
+                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Tokyo, Japan', '$800-1500', 'tokyo')">
                     <div class="text-4xl mb-4 text-center">🏯</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Tokyo, Japan</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">Modern meets Traditional</p>
                     <div class="text-center">
-                        <div class="text-purple-400 font-bold">¥80,000-150,000</div>
+                        <div class="text-purple-400 font-bold">$800-1500</div>
                         <div class="text-xs text-gray-500">per person</div>
                     </div>
                     <div class="mt-4 text-center">
                         <span class="text-xs bg-blue-600 px-2 py-1 rounded-full">Adventure</span>
                     </div>
                 </div>
-
-                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Goa, India', '₹25000-50000', 'goa')">
-                    <div class="text-4xl mb-4 text-center">🏖</div>
+                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Goa, India', '$250-500', 'goa')">
+                    <div class="text-4xl mb-4 text-center">🏖️</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Goa, India</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">Beach Paradise</p>
                     <div class="text-center">
-                        <div class="text-purple-400 font-bold">₹25,000-50,000</div>
+                        <div class="text-purple-400 font-bold">$250-500</div>
                         <div class="text-xs text-gray-500">per person</div>
                     </div>
                     <div class="mt-4 text-center">
                         <span class="text-xs bg-teal-600 px-2 py-1 rounded-full">Beach</span>
                     </div>
                 </div>
-
                 <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Dubai, UAE', '$900-2000', 'dubai')">
-                    <div class="text-4xl mb-4 text-center">🏙</div>
+                    <div class="text-4xl mb-4 text-center">🏙️</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Dubai, UAE</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">Luxury & Shopping</p>
                     <div class="text-center">
@@ -176,7 +152,6 @@
                         <span class="text-xs bg-yellow-600 px-2 py-1 rounded-full">Luxury</span>
                     </div>
                 </div>
-
                 <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('New York, USA', '$1000-2500', 'newyork')">
                     <div class="text-4xl mb-4 text-center">🗽</div>
                     <h3 class="text-xl font-bold mb-2 text-center">New York, USA</h3>
@@ -189,20 +164,18 @@
                         <span class="text-xs bg-red-600 px-2 py-1 rounded-full">Urban</span>
                     </div>
                 </div>
-
-                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('London, UK', '£700-1400', 'london')">
+                <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('London, UK', '$700-1400', 'london')">
                     <div class="text-4xl mb-4 text-center">🏰</div>
                     <h3 class="text-xl font-bold mb-2 text-center">London, UK</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">Royal Heritage</p>
                     <div class="text-center">
-                        <div class="text-purple-400 font-bold">£700-1400</div>
+                        <div class="text-purple-400 font-bold">$700-1400</div>
                         <div class="text-xs text-gray-500">per person</div>
                     </div>
                     <div class="mt-4 text-center">
                         <span class="text-xs bg-indigo-600 px-2 py-1 rounded-full">Historic</span>
                     </div>
                 </div>
-
                 <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Bali, Indonesia', '$600-1200', 'bali')">
                     <div class="text-4xl mb-4 text-center">🌺</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Bali, Indonesia</h3>
@@ -215,9 +188,8 @@
                         <span class="text-xs bg-green-600 px-2 py-1 rounded-full">Tropical</span>
                     </div>
                 </div>
-
                 <div class="destination-card glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectDestination('Switzerland', '$1200-2500', 'switzerland')">
-                    <div class="text-4xl mb-4 text-center">🏔</div>
+                    <div class="text-4xl mb-4 text-center">🏔️</div>
                     <h3 class="text-xl font-bold mb-2 text-center">Switzerland</h3>
                     <p class="text-sm text-gray-400 mb-4 text-center">Alpine Beauty</p>
                     <div class="text-center">
@@ -228,10 +200,8 @@
                         <span class="text-xs bg-blue-600 px-2 py-1 rounded-full">Nature</span>
                     </div>
                 </div>
-
             </div>
 
-            <!-- Search Box -->
             <div class="glass-effect p-6 rounded-2xl mb-8">
                 <h3 class="text-xl font-bold mb-4">Can't find your destination?</h3>
                 <div class="flex gap-4">
@@ -242,31 +212,26 @@
                 </div>
             </div>
 
-            <!-- Selected Destination Display -->
             <div class="glass-effect p-6 rounded-2xl mb-8">
                 <h3 class="text-xl font-bold mb-4 text-purple-400">Selected Destination</h3>
                 <div id="selectedDestination" class="text-2xl font-bold">Choose a destination above</div>
                 <div id="selectedBudget" class="text-gray-400 mt-2"></div>
             </div>
 
-            <!-- Next Button -->
             <div class="text-center">
-                <button onclick="nextStep(2)" id="nextToStep2" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                    Continue to Dates & Budget →
+                 <button onclick="window.location.href='dates-budget.html'" id="nextToStep2" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                 Continue to Dates & Budget →
                 </button>
             </div>
         </div>
 
-        <!-- Step 2: Dates & Budget -->
         <div id="step2" class="planner-step">
             <div class="text-center mb-8">
                 <h2 class="text-4xl font-playfair font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">When are you traveling?</h2>
                 <p class="text-xl text-gray-400">Set your dates and budget preferences</p>
             </div>
-
+            
             <div class="grid lg:grid-cols-2 gap-8 mb-8">
-                
-                <!-- Date Selection -->
                 <div class="glass-effect p-8 rounded-2xl">
                     <h3 class="text-2xl font-bold mb-6 text-blue-400">📅 Travel Dates</h3>
                     <div class="space-y-6">
@@ -286,7 +251,6 @@
                             <div id="tripDuration" class="text-2xl font-bold text-blue-400">Select dates</div>
                         </div>
                         
-                        <!-- Popular Trip Durations -->
                         <div>
                             <h4 class="font-semibold mb-3">Quick Select</h4>
                             <div class="grid grid-cols-3 gap-3">
@@ -298,11 +262,9 @@
                     </div>
                 </div>
 
-                <!-- Budget Selection -->
                 <div class="glass-effect p-8 rounded-2xl">
                     <h3 class="text-2xl font-bold mb-6 text-green-400">💰 Budget Range</h3>
                     <div class="space-y-4">
-                        
                         <div class="budget-option p-6 border-2 border-gray-600 rounded-xl cursor-pointer hover:border-green-500 transition-all" onclick="selectBudget('budget', 500, 1000)">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
@@ -316,7 +278,6 @@
                             </div>
                             <div class="text-sm text-gray-500">• Economy flights • Budget hotels • Local transport</div>
                         </div>
-
                         <div class="budget-option p-6 border-2 border-gray-600 rounded-xl cursor-pointer hover:border-green-500 transition-all" onclick="selectBudget('comfort', 1000, 2500)">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
@@ -330,7 +291,6 @@
                             </div>
                             <div class="text-sm text-gray-500">• Premium economy • 4-star hotels • Mix of transport</div>
                         </div>
-
                         <div class="budget-option p-6 border-2 border-gray-600 rounded-xl cursor-pointer hover:border-green-500 transition-all" onclick="selectBudget('luxury', 2500, 5000)">
                             <div class="flex justify-between items-start mb-2">
                                 <div>
@@ -344,12 +304,10 @@
                             </div>
                             <div class="text-sm text-gray-500">• Business class • 5-star hotels • Private transport</div>
                         </div>
-
                     </div>
                 </div>
             </div>
 
-            <!-- Travelers Count -->
             <div class="glass-effect p-8 rounded-2xl mb-8">
                 <h3 class="text-2xl font-bold mb-6 text-orange-400">👥 How many travelers?</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -384,29 +342,25 @@
                 </div>
             </div>
 
-            <!-- Navigation -->
             <div class="flex justify-between">
                 <button onclick="showStep(1)" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-xl font-semibold transition-all">
                     ← Back to Destinations
                 </button>
-                <button onclick="nextStep(3)" id="nextToStep3" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <button onclick="showStep(3)" id="nextToStep3" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                     Continue to Transport →
                 </button>
             </div>
         </div>
 
-        <!-- Step 3: Transportation -->
         <div id="step3" class="planner-step">
             <div class="text-center mb-8">
                 <h2 class="text-4xl font-playfair font-bold mb-4 bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">How will you travel?</h2>
                 <p class="text-xl text-gray-400">Choose your flight and local transportation</p>
             </div>
 
-            <!-- Flight Options -->
             <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 text-indigo-400">✈ Flight Options</h3>
+                <h3 class="text-2xl font-bold mb-6 text-indigo-400">✈️ Flight Options</h3>
                 <div class="grid lg:grid-cols-3 gap-6">
-                    
                     <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectTransport('economy', 400, 800)">
                         <div class="text-3xl mb-4 text-center">🛫</div>
                         <h4 class="text-xl font-bold mb-3 text-center">Economy Class</h4>
@@ -475,15 +429,12 @@
                             <div class="text-sm text-gray-500">round trip</div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Local Transportation -->
             <div class="mb-8">
                 <h3 class="text-2xl font-bold mb-6 text-cyan-400">🚗 Local Transportation</h3>
                 <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-6">
-                    
                     <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectLocalTransport('rental', 30, 80)">
                         <div class="text-3xl mb-4 text-center">🚗</div>
                         <h4 class="text-lg font-bold mb-2 text-center">Car Rental</h4>
@@ -494,4 +445,60 @@
                         </div>
                     </div>
 
-                    <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer">
+                    <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectLocalTransport('public', 10, 25)">
+                        <div class="text-3xl mb-4 text-center">🚇</div>
+                        <h4 class="text-lg font-bold mb-2 text-center">Public Transport</h4>
+                        <p class="text-sm text-gray-400 mb-3 text-center">Cost-effective and authentic</p>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-cyan-400">$10-25</div>
+                            <div class="text-xs text-gray-500">per day</div>
+                        </div>
+                    </div>
+
+                    <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectLocalTransport('ride-sharing', 15, 40)">
+                        <div class="text-3xl mb-4 text-center">🚕</div>
+                        <h4 class="text-lg font-bold mb-2 text-center">Ride Sharing</h4>
+                        <p class="text-sm text-gray-400 mb-3 text-center">Convenient and on-demand</p>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-cyan-400">$15-40</div>
+                            <div class="text-xs text-gray-500">per ride</div>
+                        </div>
+                    </div>
+
+                    <div class="transport-option glass-effect p-6 rounded-2xl cursor-pointer hover-lift transition-all" onclick="selectLocalTransport('private-driver', 100, 300)">
+                        <div class="text-3xl mb-4 text-center">👨‍✈️</div>
+                        <h4 class="text-lg font-bold mb-2 text-center">Private Driver</h4>
+                        <p class="text-sm text-gray-400 mb-3 text-center">Ultimate comfort and luxury</p>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-cyan-400">$100-300</div>
+                            <div class="text-xs text-gray-500">per day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <button onclick="window.location.href = 'dates-budget.html'" class="bg-gray-700 hover:bg-gray-600 px-8 py-4 rounded-xl font-semibold transition-all">
+                ← Back to Dates & Budget
+                </button>
+                <button onclick="window.location.href = 'hotel.html'" id="nextToStep4" class="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 px-8 py-4 rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                 Continue to Hotels →
+                </button>
+            </div>
+        </div>
+
+        <div id="step4" class="planner-step">
+            </div>
+
+        <div id="step5" class="planner-step">
+            </div>
+    </main>
+
+    <footer class="p-6 text-center text-gray-400">
+        © 2025 Velvet Routes. All rights reserved.
+    </footer>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>

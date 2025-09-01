@@ -274,9 +274,46 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
         }
+        .home-button {
+    /* Basic button styling */
+    position: fixed; /* This makes the button stay in a fixed position on the screen */
+    top: 20px;       /* Change from 'bottom' to 'top' */
+    right: 20px;     /* 20 pixels from the right side of the screen */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    /* Look and feel from your image */
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Optional: Adds a hover effect for a better user experience */
+.home-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.arrow-icon {
+    font-size: 20px;
+    line-height: 1;
+}
     </style>
 </head>
 <body>
+    <a href="travel.html" class="home-button">
+    <span class="arrow-icon">&larr;</span> Back to Home
+</a>
     <div class="floating-elements">
         <div class="floating-element">✈️</div>
         <div class="floating-element">🏨</div>
@@ -385,7 +422,7 @@
         <div class="cta-section">
             <h2 class="cta-title">Ready to Embark on Your Journey?</h2>
             <p class="cta-description">Join thousands of satisfied travelers who have chosen Velvet Routes for their unforgettable adventures. Let us transform your travel dreams into reality.</p>
-            <a href="#" class="cta-button">Start Planning Your Trip</a>
+            <a href="Home.html" class="cta-button">Start Planning Your Trip</a>
         </div>
     </div>
 
@@ -437,5 +474,9 @@
             });
         });
     </script>
+    <div class="action-buttons">
+    <a href="planner.html" class="btn btn-secondary">Back: To Planner</a>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
