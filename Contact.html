@@ -1,301 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Travel Itinerary Generator - Transport Options</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Velvet Routes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
+    /* Smooth fade-in for sections */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Background travel theme with overlay */
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
+      background: 
+        linear-gradient(rgba(40, 15, 75, 0.85), rgba(30, 10, 60, 0.9)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating decorative elements */
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 10s ease-in-out infinite;
+    }
+    .floating-shape:nth-child(1) {
+      width: 100px; height: 100px;
+      background: #a78bfa;
+      top: 20%; left: 10%;
+    }
+    .floating-shape:nth-child(2) {
+      width: 150px; height: 150px;
+      background: #60a5fa;
+      bottom: 15%; right: 15%;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Popup overlay animation */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
       justify-content: center;
       align-items: center;
-      color: #fff;
-      background: linear-gradient(135deg, #6d28d9, #a855f7, #ec4899);
-      background-size: 300% 300%;
-      animation: gradientBG 12s ease infinite;
+      z-index: 50;
+      animation: fadeIn 0.5s ease-in-out;
     }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .main-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 22px;
-      padding: 40px;
-      max-width: 1100px;
-      width: 95%;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-
-    h1 {
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
       text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 15px;
-      color: #fff;
-    }
-
-    p.subtitle {
-      text-align: center;
-      font-size: 1.15rem;
-      margin-bottom: 40px;
-      color: #f3e8ff;
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .transport-option {
-      position: relative;
-    }
-
-    .transport-card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.25);
-      border-radius: 18px;
-      padding: 25px;
-      min-height: 240px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .transport-card:hover {
-      transform: translateY(-8px);
-      background: rgba(236,72,153,0.25);
-      border-color: #ec4899;
-      box-shadow: 0 12px 28px rgba(236,72,153,0.35);
-    }
-
-    .transport-option input[type="radio"] {
-      display: none;
-    }
-
-    .transport-option input[type="radio"]:checked + .transport-card {
-      border: 2px solid #ec4899;
-      background: rgba(236, 72, 153, 0.25);
-      box-shadow: 0 14px 38px rgba(236, 72, 153, 0.45);
-    }
-
-    .card-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .card-info {
-      font-size: 0.95rem;
-      color: #f5f3ff;
-      line-height: 1.55;
-    }
-
-    #confirmation{
-    display:none;
-    margin:20px auto 0;
-    max-width:560px;
-    padding:12px 16px;
-    border-radius:12px;
-    background: var(--confirm-bg);
-    border:2px solid var(--confirm-border);
-    color: var(--confirm-text);
-    font-weight:700;
-    text-align:center;
-    box-shadow: 0 8px 20px rgba(169, 158, 158, 0.25);
-    animation: dropIn .25s ease;
-  }
-
-    .submit-btn {
-      display: block;
-      margin: 30px auto 0;
-      padding: 14px 32px;
-      font-size: 1.15rem;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg,#ec4899,#a855f7);
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .submit-btn:hover {
-      background: linear-gradient(135deg,#db2777,#9333ea);
-      transform: scale(1.05);
-    }
-
-    /* Popup Styles */
-    #popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.15); 
-      backdrop-filter: blur(12px);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 30px 40px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      text-align: center;
-      z-index: 1001;
       max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(128, 0, 128, 0.4);
+      transform: scale(0.8);
+      animation: popupScale 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes popupScale {
+      to {transform: scale(1);}
     }
 
-    #popup button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(135deg,#ec4899,#a855f7);
-      color: white;
-      cursor: pointer;
+    /* Social Media hover effects */
+    .social-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
     }
-    #popup button:hover {
-      background: linear-gradient(135deg,#db2777,#9333ea);
+    .social-icon:hover {
+      transform: rotate(10deg) scale(1.2);
     }
 
-    #overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 1000;
+    /* Button hover glow */
+    .glow-button {
+      background: linear-gradient(to right, #9333ea, #3b82f6);
+    }
+    .glow-button:hover {
+      box-shadow: 0 0 15px rgba(128, 0, 128, 0.6);
+    }
+
+    /* Subtle animated gradient border */
+    .gradient-border {
+      border: 3px solid transparent;
+      background-clip: padding-box, border-box;
+      background-origin: border-box;
+      background-image: linear-gradient(white, white), 
+        linear-gradient(to right, #7e22ce, #2563eb);
+    }
+
+    /* Section overlay for readability */
+    .section-bg {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem;
     }
   </style>
 </head>
-<body>
-  <div class="main-card">
-    <h1>Select Your Mode of Transport</h1>
-    <p class="subtitle">Choose the most suitable way to travel. Hover to preview, click to confirm.</p>
+<body class="text-white">
 
-    <div class="options-grid">
-      <label class="transport-option">
-        <input type="radio" name="transport" value="Flight"/>
-        <div class="transport-card">
-          <div class="card-icon">🛫</div>
-          <div class="card-title">Flight</div>
-          <div class="card-info">
-            Best for long-distance journeys.<br>
-            • Speed: 600–900 km/h<br>
-            • Average cost: ₹5000 – ₹12000<br>
-            • Comfort: High (premium seating available)<br>
-            • Duration: 1 – 4 hrs depending on route
+  <!-- Floating Shapes -->
+  <div class="floating-shape"></div>
+  <div class="floating-shape"></div>
+
+  <!-- Header Section -->
+  <header class="text-center py-10 fade-in">
+    <h1 class="text-5xl font-extrabold drop-shadow-lg">Contact Us</h1>
+    <p class="text-gray-200 mt-2 text-lg">We’d love to help you plan your next adventure</p>
+  </header>
+
+  <!-- Velvet Routes Intro Paragraph -->
+  <section class="max-w-3xl mx-auto text-center fade-in px-4 mb-10">
+    <p class="text-lg md:text-xl text-gray-200 leading-relaxed bg-black bg-opacity-40 p-6 rounded-2xl shadow-lg">
+      At <span class="font-bold text-purple-300">Velvet Routes</span>, we specialize in crafting 
+      personalized travel experiences that transform journeys into memories. 
+      Whether it’s a luxury escape, an adventurous trek, or a cultural exploration, 
+      our dedicated team ensures every detail is planned with precision. 
+      Let us take you beyond the ordinary and make every trip unforgettable.
+    </p>
+  </section>
+
+  <!-- Main Section -->
+  <main class="flex-1">
+    <section class="max-w-6xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-10 section-bg fade-in">
+      
+      <!-- Contact Info Card -->
+      <div class="bg-white text-gray-900 shadow-xl rounded-2xl p-8 gradient-border">
+        <h2 class="text-2xl font-bold text-purple-700">Get in Touch</h2>
+        <p class="mt-4 text-gray-600">
+          Our team is here to assist you 24/7. Reach out with your queries or trip plans, and we’ll make it happen.
+        </p>
+
+        <div class="mt-6 space-y-4">
+          <p class="flex items-center text-gray-700">
+            <i class="fa-solid fa-user text-purple-600 text-xl mr-3"></i>
+            Mr. James Anderson
+          </p>
+          <p class="flex items-center text-gray-700">
+            <i class="fa-solid fa-location-dot text-purple-600 text-xl mr-3"></i>
+            123 Regent Street, London, UK
+          </p>
+          <p class="flex items-center text-gray-700">
+            <i class="fa-solid fa-phone text-purple-600 text-xl mr-3"></i>
+            +44 20 7946 0123
+          </p>
+          <p class="flex items-center text-gray-700">
+            <i class="fa-solid fa-envelope text-purple-600 text-xl mr-3"></i>
+            support@velvetroutes.com
+          </p>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold text-purple-700">Follow Us</h3>
+          <div class="flex space-x-6 mt-4">
+            <a href="https://twitter.com" target="_blank" class="text-blue-400 hover:text-blue-600 text-3xl social-icon" title="Twitter">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="text-pink-500 hover:text-pink-700 text-3xl social-icon" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://facebook.com" target="_blank" class="text-blue-700 hover:text-blue-900 text-3xl social-icon" title="Facebook">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="text-gray-800 hover:text-black text-3xl social-icon" title="LinkedIn">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
           </div>
         </div>
-      </label>
+      </div>
 
-      <label class="transport-option">
-        <input type="radio" name="transport" value="Train"/>
-        <div class="transport-card">
-          <div class="card-icon">🚄</div>
-          <div class="card-title">Train</div>
-          <div class="card-info">
-            Scenic & comfortable for mid/long trips.<br>
-            • Speed: 80–200 km/h<br>
-            • Average cost: ₹500 – ₹3000<br>
-            • Comfort: Sleeper & AC coaches<br>
-            • Duration: 4 – 12 hrs
+      <!-- Contact Form Card -->
+      <div class="bg-white text-gray-900 shadow-xl rounded-2xl p-8 gradient-border">
+        <h2 class="text-2xl font-bold text-purple-700">Send Us a Message</h2>
+        <form id="contactForm" class="mt-6 space-y-5">
+          <div>
+            <label class="block text-gray-700 font-medium">Full Name</label>
+            <input type="text" placeholder="Enter your name" required
+                   class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
           </div>
-        </div>
-      </label>
+          <div>
+            <label class="block text-gray-700 font-medium">Email Address</label>
+            <input type="email" placeholder="you@example.com" required
+                   class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+          </div>
+          <div>
+            <label class="block text-gray-700 font-medium">Message</label>
+            <textarea rows="4" placeholder="Write your message here..." required
+                      class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+          </div>
+          <button type="submit" 
+                  class="w-full text-white font-semibold py-3 rounded-lg transition glow-button">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
 
-      <label class="transport-option">
-        <input type="radio" name="transport" value="Bus"/>
-        <div class="transport-card">
-          <div class="card-icon">🚌</div>
-          <div class="card-title">Bus</div>
-          <div class="card-info">
-            Budget friendly for shorter journeys.<br>
-            • Speed: 60–100 km/h<br>
-            • Average cost: ₹200 – ₹1500<br>
-            • Comfort: Varies (Deluxe/Sleeper/AC)<br>
-            • Duration: 3 – 10 hrs
-          </div>
-        </div>
-      </label>
+  <!-- Footer -->
+  <footer class="bg-purple-700 text-center text-white py-6 mt-10 fade-in">
+    <p>&copy; 2025 Velvet Routes. All Rights Reserved.</p>
+  </footer>
 
-      <label class="transport-option">
-        <input type="radio" name="transport" value="Car"/>
-        <div class="transport-card">
-          <div class="card-icon">🚘</div>
-          <div class="card-title">Car</div>
-          <div class="card-info">
-            Perfect for flexible road trips.<br>
-            • Speed: 60–120 km/h<br>
-            • Cost: Fuel + Tolls (₹5–10/km)<br>
-            • Comfort: Fully private, stops as needed<br>
-            • Duration: Depends on distance
-          </div>
-        </div>
-      </label>
+  <!-- Popup -->
+  <div id="popup" class="popup-overlay flex">
+    <div class="popup-content">
+      <h3 class="text-2xl font-bold text-purple-700">Message Sent Successfully!</h3>
+      <p class="mt-4 text-gray-600">
+        Thank you for reaching out to <strong>Velvet Routes</strong>.<br>
+        We craft extraordinary travel experiences tailored to your dreams.<br>
+        Our team will get back to you shortly!
+      </p>
+      <button onclick="closePopup()" 
+              class="mt-6 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition glow-button">
+        Close
+      </button>
     </div>
-
-    <div id="confirmation">✔ You have selected a mode of transport!</div>
-    <button class="submit-btn">Continue</button>
-  </div>
-
-  <!-- Popup + Overlay -->
-  <div id="overlay"></div>
-  <div id="popup">
-    <p id="popupMessage"></p>
-    <button onclick="closePopup()">OK</button>
   </div>
 
   <script>
-    const radios = document.querySelectorAll('input[name="transport"]');
-    const confirmation = document.getElementById('confirmation');
-    const continueBtn = document.querySelector('.submit-btn');
+    // Form submit event
+    const form = document.getElementById('contactForm');
     const popup = document.getElementById('popup');
-    const popupMessage = document.getElementById('popupMessage');
-    const overlay = document.getElementById('overlay');
-    let selectedMode = "";
 
-    radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        selectedMode = radio.value;
-        confirmation.style.display = 'block';
-        confirmation.textContent = `✔ You selected ${radio.value}!`;
-      });
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+      popup.style.display = 'flex'; // Show popup
+      form.reset(); // Clear the form fields
     });
-
-    continueBtn.addEventListener('click', () => {
-      if (selectedMode === "") {
-        showPopup("⚠ Please select a transport mode first.");
-      } else if (selectedMode === "Train") {
-        showPopup("🚄 Train confirmed! Enjoy your scenic journey.");
-      } else {
-        showPopup(`✅ You chose ${selectedMode}. Proceeding to next step.`);
-      }
-    });
-
-    function showPopup(message) {
-      popupMessage.textContent = message;
-      popup.style.display = 'block';
-      overlay.style.display = 'block';
-    }
 
     function closePopup() {
-      popup.style.display = 'none';
-      overlay.style.display = 'none';
+      popup.style.display = 'none'; // Hide popup
     }
+
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    function checkFadeIn() {
+      const triggerBottom = window.innerHeight * 0.85;
+      fadeElements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', checkFadeIn);
+    window.addEventListener('load', checkFadeIn);
   </script>
 </body>
 </html>
