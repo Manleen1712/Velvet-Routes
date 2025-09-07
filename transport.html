@@ -20,6 +20,17 @@
             overflow-x: hidden;
         }
 
+        /* Logo */
+    .logo {
+      width: 50px; height: 50px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+    .header p {margin-top: 8px; font-size: 1.2rem; opacity: 0.9;}
+
         /* Animated background elements */
         .bg-animation {
             position: fixed;
@@ -89,6 +100,7 @@
             font-weight: 300;
             letter-spacing: 0.5px;
         }
+        
 
         .breadcrumb {
             display: flex;
@@ -655,11 +667,12 @@
         ✅ Transportation selected successfully!
     </div>
 
-    <div class="container">
-        <div class="header">
-            <h1>🌍 Velvet Routes</h1>
-            <p>Choose your perfect mode of transportation for an unforgettable journey</p>
-        </div>
+    
+        <!-- HEADER WITH LOGO -->
+    <div class="header">
+      <h1><div class="logo">V</div> Velvet Routes</h1>
+      <p>Choose your perfect mode of transportation for an unforgettable journey</p>
+    </div>
 
         <div class="breadcrumb">
             <div class="breadcrumb-item" onclick="window.location.href='dates-budget.html'">📅 Dates & Budget</div>
