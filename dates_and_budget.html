@@ -358,8 +358,9 @@
     </div>
   </div>
 
+  <script src="Script.js"></script>
   <script>
-    // traveler counters
+    // Enhanced dates and budget functionality
     const counters = { adults: 2, children: 0, infants: 0 };
 
     function setCounterDisabledStates(){
@@ -382,6 +383,12 @@
       document.getElementById('infants-count').textContent = counters.infants;
       setCounterDisabledStates();
       updateSummary();
+      
+      // Update global travel data
+      travelData.adults = counters.adults;
+      travelData.children = counters.children;
+      travelData.infants = counters.infants;
+      saveTravelData();
     }
 
     function changeCounter(type, delta){
@@ -392,7 +399,6 @@
       updateCounterUI();
     }
 
-    // duration
     function updateDuration(){
       const d = document.getElementById('departure-date').value;
       const r = document.getElementById('return-date').value;
@@ -403,13 +409,22 @@
       const start = new Date(d);
       const end = new Date(r);
 
-      if(end < start){ out.textContent = 'Return must be after departure'; return; }
+      if(end < start){ 
+        out.textContent = 'Return must be after departure'; 
+        showNotification('Return date must be after departure date.', 'error');
+        return; 
+      }
 
       const diffDays = Math.ceil((end - start)/(1000*60*60*24));
       out.textContent = `${diffDays} day${diffDays>1?'s':''}`;
+      
+      // Update global travel data
+      travelData.departureDate = d;
+      travelData.returnDate = r;
+      travelData.duration = diffDays;
+      saveTravelData();
     }
 
-    // summary
     function updateSummary(){
       // travelers
       const total = counters.adults + counters.children + counters.infants;
@@ -430,12 +445,16 @@
 
         document.getElementById('estimated-total').textContent =
           `$${estMin.toLocaleString()} – $${estMax.toLocaleString()}`;
+          
+        // Update global travel data
+        travelData.budget = sel.value;
+        travelData.budgetRange = { min: estMin, max: estMax };
+        saveTravelData();
       }
 
       updateDuration();
     }
 
-    // navigation + save
     function proceed(){
       const formData = {
         departureDate: document.getElementById('departure-date').value,
@@ -446,21 +465,46 @@
       };
 
       if(!formData.departureDate || !formData.returnDate || !formData.budget){
-        alert('Please fill in departure date, return date, and budget.');
+        showNotification('Please fill in departure date, return date, and budget.', 'warning');
         return;
       }
-      alert('Proceeding to destination selection with your preferences!');
-      console.log('Form data:', formData);
-      // window.location.href = 'destinations.html'; // enable when ready
+      
+      showNotification('Proceeding to transport selection with your preferences!', 'success');
+      setTimeout(() => {
+        window.location.href = 'transport.html';
+      }, 1500);
     }
 
     function saveLater(){
-      alert('Your preferences have been saved! You can continue planning later.');
-      // localStorage.setItem('vr-plan', JSON.stringify(...)) // optional
+      showNotification('Your preferences have been saved! You can continue planning later.', 'success');
     }
 
-    // init events
+    // Initialize page
     document.addEventListener('DOMContentLoaded', ()=>{
+      // Load existing data
+      loadTravelData();
+      
+      // Update counters with saved data
+      counters.adults = travelData.adults || 2;
+      counters.children = travelData.children || 0;
+      counters.infants = travelData.infants || 0;
+      
+      // Set saved dates
+      if (travelData.departureDate) {
+        document.getElementById('departure-date').value = travelData.departureDate;
+      }
+      if (travelData.returnDate) {
+        document.getElementById('return-date').value = travelData.returnDate;
+      }
+      
+      // Set saved budget
+      if (travelData.budget) {
+        const budgetRadio = document.querySelector(`input[name="budget"][value="${travelData.budget}"]`);
+        if (budgetRadio) {
+          budgetRadio.checked = true;
+        }
+      }
+      
       // date mins
       const today = new Date().toISOString().split('T')[0];
       const dep = document.getElementById('departure-date');
@@ -492,9 +536,9 @@
     });
   </script>
   <div class="action-buttons">
-    <a href="transport.html" class="btn btn-primary">Next: Choose Transport</a>
-    <a href="planner.html" class="btn btn-secondary">Back: To Planner</a>
-</div>
+    <a href="planner.html" class="btn btn-secondary">← Back to Planner</a>
+    <a href="transport.html" class="btn btn-primary">Next: Choose Transport →</a>
+  </div>
 
 </body>
 </html>
