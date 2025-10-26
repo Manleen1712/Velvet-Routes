@@ -260,6 +260,7 @@
     <button onclick="closePopup()">OK</button>
   </div>
 
+  <script src="Script.js"></script>
   <script>
     const radios = document.querySelectorAll('input[name="transport"]');
     const confirmation = document.getElementById('confirmation');
@@ -269,21 +270,45 @@
     const overlay = document.getElementById('overlay');
     let selectedMode = "";
 
+    // Load existing data
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTravelData();
+      
+      // Pre-select if already chosen
+      if (travelData.localTransport) {
+        const existingRadio = document.querySelector(`input[name="transport"][value="${travelData.localTransport}"]`);
+        if (existingRadio) {
+          existingRadio.checked = true;
+          selectedMode = travelData.localTransport;
+          confirmation.style.display = 'block';
+          confirmation.textContent = `✔ You selected ${travelData.localTransport}!`;
+        }
+      }
+    });
+
     radios.forEach(radio => {
       radio.addEventListener('change', () => {
         selectedMode = radio.value;
         confirmation.style.display = 'block';
         confirmation.textContent = `✔ You selected ${radio.value}!`;
+        
+        // Update global data
+        travelData.localTransport = selectedMode;
+        saveTravelData();
+        showNotification(`Transport mode selected: ${selectedMode}`, 'success');
       });
     });
 
     continueBtn.addEventListener('click', () => {
       if (selectedMode === "") {
         showPopup("⚠ Please select a transport mode first.");
-      } else if (selectedMode === "Train") {
-        showPopup("🚄 Train confirmed! Enjoy your scenic journey.");
       } else {
-        showPopup(`✅ You chose ${selectedMode}. Proceeding to next step.`);
+        showPopup(`✅ You chose ${selectedMode}. Proceeding to hotel selection.`);
+        
+        // Navigate to next page after a delay
+        setTimeout(() => {
+          window.location.href = 'hotel.html';
+        }, 2000);
       }
     });
 
